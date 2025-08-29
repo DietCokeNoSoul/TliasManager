@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yep.web.mapper.EmpMapper">
+    <resultMap id="empResultMap" type="com.yep.web.pojo.Emp">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="job" column="job"/>
+        <result property="salary" column="salary"/>
+        <result property="image" column="image"/>
+        <result property="entryTime" column="entry_time"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deptName" column="deptName"/>
+    </resultMap>
+
+    <select id="count">
+        SELECT COUNT(*) FROM emp LEFT JOIN dept ON emp.dept_id = dept.id
+    </select>
+
+    <select id="list" resultMap="empResultMap">
+        SELECT emp.*, dept.name AS deptName FROM emp LEFT JOIN dept ON emp.dept_id = dept.id
+        <where>
+            <if test="name != null and name != ''">
+                emp.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                AND emp.gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                AND emp.entry_time BETWEEN #{begin} AND #{end}
+            </if>
+        </where>
+        ORDER BY emp.update_time DESC
+    </select>
+
+    <insert id="insert" parameterType="com.yep.web.pojo.Emp" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO emp (username, password, name, gender, phone, job, salary, image, entry_time, dept_id)
+        VALUES (#{username}, 
+               <choose>
+                   <when test="password != null and password != ''">#{password}</when>
+                   <otherwise>'123456'</otherwise>
+               </choose>, 
+               #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}, #{entryTime}, #{deptId});
+    </insert>
+
+    <!-- deleteEmp --> 
+
+    <delete id="delete">
+        DELETE FROM emp WHERE id IN 
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

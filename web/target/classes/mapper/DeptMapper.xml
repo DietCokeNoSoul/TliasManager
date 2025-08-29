@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yep.web.mapper.DeptMapper">
+    <resultMap id="deptResultMap" type="com.yep.web.pojo.Dept">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- findAll --> 
+
+    <select id="findAll" resultMap="deptResultMap">
+        SELECT id, name, create_time, update_time FROM dept ORDER BY update_time DESC;
+    </select>
+
+    <delete id="delete">
+        DELETE FROM dept WHERE id = #{id}
+    </delete>
+
+    <insert id="insert">
+        INSERT INTO dept (name, create_time, update_time) VALUES (#{name}, now(), now())
+    </insert>
+
+    <select id="findById" resultMap="deptResultMap">
+        SELECT id, name, create_time, update_time FROM dept WHERE id = #{id}
+    </select>
+    
+    <update id="update">
+        UPDATE dept SET name = #{name}, update_time = now() WHERE id = #{id}
+    </update>
+</mapper>

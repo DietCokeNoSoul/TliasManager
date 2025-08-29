@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yep.web.mapper.EmpExprMapper">
+    <resultMap id="empExprResultMap" type="com.yep.web.pojo.EmpExpr">
+        <id property="id" column="id"/>
+        <result property="begin" column="begin"/>
+        <result property="end" column="end"/>
+        <result property="company" column="company"/>
+        <result property="job" column="job"/>
+        <result property="empId" column="emp_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- insertEmpExpr --> 
+
+    <insert id="insert" parameterType="com.yep.web.pojo.EmpExpr">
+        INSERT INTO emp_expr (begin, end, company, job, emp_id)
+        <foreach collection="empExprList" item="item" separator=",">
+            VALUES (#{item.begin}, #{item.end}, #{item.company}, #{item.job}, #{item.empId})
+        </foreach>
+    </insert>
+
+    <!-- deleteByEmpId --> 
+
+    <delete id="deleteByEmpId">
+        DELETE FROM emp_expr WHERE emp_id IN
+        <foreach collection="empIds" item="empId" separator="," open="(" close=")">
+            #{empId}
+        </foreach>
+    </delete>
+
+</mapper>
