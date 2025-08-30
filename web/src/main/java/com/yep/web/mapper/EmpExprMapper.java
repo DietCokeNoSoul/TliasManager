@@ -15,5 +15,9 @@ public interface EmpExprMapper {
      */
     public void insert(List<EmpExpr> empExprList);
 
+    /**
+     * 根据员工ID删除经历
+     * @param empIds 员工ID列表
+     */
     public void deleteByEmpId(List<Integer> empIds);
 }

@@ -14,4 +14,8 @@ public interface EmpService {
     public void createEmp(Emp emp);
 
     public void deleteEmp(List<Integer> ids);
+
+    public Emp getEmpById(Integer id);
+
+    public void updateEmp(Emp entity);
 }

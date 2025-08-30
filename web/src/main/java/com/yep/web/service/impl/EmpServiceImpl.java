@@ -1,5 +1,7 @@
 package com.yep.web.service.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,4 +66,32 @@ public class EmpServiceImpl implements EmpService {
         empExprMapper.deleteByEmpId(ids);
         empMapper.delete(ids);
     }
+
+    /**
+     * 根据ID获取员工信息
+     * @param id 员工ID
+     * @return 员工信息
+     */
+    public Emp getEmpById(Integer id) {
+        Emp emp = empMapper.getById(id);
+        return emp;
+    }
+
+    /**
+     * 更新员工信息
+     * @param emp
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void updateEmp(Emp emp) {
+        // 修改员工信息
+        empMapper.update(emp);
+        // 修改工作经历
+        empExprMapper.deleteByEmpId(Arrays.asList(emp.getId()));
+        List<EmpExpr> empExprList = emp.getEmpExprList();
+        if (empExprList != null && empExprList.size() > 0) {
+            empExprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
+            empExprMapper.insert(empExprList);
+        }
+    }
+
 }

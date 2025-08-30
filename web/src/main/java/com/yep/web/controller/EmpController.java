@@ -19,6 +19,7 @@ import com.yep.web.service.EmpService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -63,5 +64,31 @@ public class EmpController {
         empService.deleteEmp(ids);
         return Result.success();
     }
-    
+
+    /**
+     * 获取员工信息
+     * 以及工作经历
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result getEmp(@PathVariable Integer id) {
+        log.info("获取员工信息，ID：{}", id);
+        Emp emp = empService.getEmpById(id);
+        return Result.success(emp);
+    }
+
+    /**
+     * 更新员工信息
+     * 以及工作经历（先删后添）
+     * @param entity
+     * @return
+     */
+    @PutMapping
+    public Result updateEmp(@RequestBody Emp entity) {
+        log.info("更新员工，参数：{}", entity);
+        empService.updateEmp(entity);
+        return Result.success();
+    }
+
 }

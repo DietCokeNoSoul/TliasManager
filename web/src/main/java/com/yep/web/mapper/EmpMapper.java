@@ -25,5 +25,22 @@ public interface EmpMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     public void insert(Emp emp);
 
+    /**
+     * 删除员工
+     * @param ids 员工ID列表
+     */
     public void delete(List<Integer> ids);
+
+    /**
+     * 根据ID获取员工信息
+     * @param id 员工ID
+     * @return 员工信息
+     */
+    public Emp getById(Integer id);
+
+    /**
+     * 更新员工信息
+     * @param emp 员工信息
+     */
+    public void update(Emp emp);
 }
