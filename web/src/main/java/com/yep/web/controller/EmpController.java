@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+/**
+ * 员工管理
+ */
 @Slf4j
 @RestController
 @RequestMapping("/emps")
@@ -90,5 +92,4 @@ public class EmpController {
         empService.updateEmp(entity);
         return Result.success();
     }
-
 }

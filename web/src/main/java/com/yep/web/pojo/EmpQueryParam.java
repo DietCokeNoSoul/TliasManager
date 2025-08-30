@@ -6,6 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
+/**
+ * 员工查询参数
+ */
 @Data
 public class EmpQueryParam {
     private Integer page = 1;        // 默认第1页

@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.yep.web.pojo.EmpExpr;
 
+/**
+ * 员工经历数据访问层
+ */
 @Mapper
 public interface EmpExprMapper {
 

@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 员工经历
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -9,7 +9,7 @@ import lombok.Data;
 @Component
 @ConfigurationProperties(prefix = "aliyun.oss")
 public class AliyunOSSProperties {
-    private String endpoint;
-    private String bucketName;
-    private String region;
+    private String endpoint;// OSS 端点
+    private String bucketName;// 存储桶名称
+    private String region;// 区域
 }

@@ -6,13 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 分页结果
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageResult<T> {
-	private long total;
-    private List<T> rows;
+public class JobOption {
+    private List jobList;// 职位列表
+    private List dataList;// 数据列表
 }

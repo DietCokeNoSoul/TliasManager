@@ -1,6 +1,5 @@
 package com.yep.web.service.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +17,9 @@ import com.yep.web.pojo.EmpQueryParam;
 import com.yep.web.pojo.PageResult;
 import com.yep.web.service.EmpService;
 
+/**
+ * 员工服务实现
+ */
 @Service
 public class EmpServiceImpl implements EmpService {
 

@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.yep.web.pojo.Dept;
 
+/**
+ * 部门数据访问层
+ */
 @Mapper
 public interface DeptMapper {
     /**

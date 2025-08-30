@@ -79,22 +79,26 @@
         WHERE emp.id = #{id};
     </select>
 
-    <!-- update --> 
+    <!-- countEmpJobData --> 
 
-    <update id="update"> 
-        UPDATE emp 
-        <set>
-            <if test="username != null and username != ''">username = #{username},</if>
-            <if test="password != null and password != ''">password = #{password},</if>
-            <if test="name != null and name != ''">name = #{name},</if>
-            <if test="gender != null">gender = #{gender},</if>
-            <if test="phone != null and phone != ''">phone = #{phone},</if>
-            <if test="job != null">job = #{job},</if>
-            <if test="salary != null">salary = #{salary},</if>
-            <if test="image != null and image != ''">image = #{image},</if>
-            <if test="entryTime != null">entry_time = #{entryTime},</if>
-            <if test="deptId != null">dept_id = #{deptId},</if>
-        </set>
-        WHERE id = #{id};
-    </update>
+    <select id="countEmpJobData">
+        SELECT 
+            CASE job WHEN 1 THEN '班主任'
+            WHEN 2 THEN '讲师' 
+            WHEN 3 THEN '学工主管' 
+            WHEN 4 THEN '教师主观' 
+            WHEN 5 THEN '咨询师' 
+            END AS job_name,
+            COUNT(*) as count
+        FROM emp GROUP BY job;
+    </select>
+
+    <!-- countEmpGenderData --> 
+
+    <select id="countEmpGenderData">
+        SELECT 
+            if (gender = 1, '男', '女') AS gender,
+            COUNT(*) as count 
+        FROM emp GROUP BY gender;
+    </select>
 </mapper>

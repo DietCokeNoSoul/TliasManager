@@ -78,4 +78,27 @@
         FROM emp LEFT JOIN emp_expr ON emp.id = emp_expr.emp_id 
         WHERE emp.id = #{id};
     </select>
+
+    <!-- countEmpJobData --> 
+
+    <select id="countEmpJobData">
+        SELECT 
+            CASE job WHEN 1 THEN '班主任'
+            WHEN 2 THEN '讲师' 
+            WHEN 3 THEN '学工主管' 
+            WHEN 4 THEN '教师主观' 
+            WHEN 5 THEN '咨询师' 
+            END AS job_name,
+            COUNT(*) as count
+        FROM emp GROUP BY job;
+    </select>
+
+    <!-- countEmpGenderData --> 
+
+    <select id="countEmpGenderData">
+        SELECT 
+            if (gender = 1, '男', '女') AS gender,
+            COUNT(*) as count 
+        FROM emp GROUP BY gender;
+    </select>
 </mapper>

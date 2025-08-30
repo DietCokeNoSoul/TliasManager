@@ -1,13 +1,18 @@
 package com.yep.web.mapper;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 
 import com.yep.web.pojo.Emp;
 import com.yep.web.pojo.EmpQueryParam;
 
+/**
+ * 员工数据访问层
+ */
 @Mapper
 public interface EmpMapper {
 
@@ -43,4 +48,17 @@ public interface EmpMapper {
      * @param emp 员工信息
      */
     public void update(Emp emp);
+
+    /**
+     * 统计员工职位分布
+     * @return 职位分布数据
+     */
+
+    List<Map<String, Object>> countEmpJobData();
+
+    /**
+     * 统计员工性别分布
+     * @return 性别分布数据
+     */
+    List<Map<String, Object>> countEmpGenderData();
 }

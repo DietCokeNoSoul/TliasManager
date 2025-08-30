@@ -7,6 +7,9 @@ import com.yep.web.pojo.Emp;
 import com.yep.web.pojo.EmpQueryParam;
 import com.yep.web.pojo.PageResult;
 
+/**
+ * 员工服务
+ */
 public interface EmpService {
 
     public PageResult<Emp> list(EmpQueryParam empQueryParam);

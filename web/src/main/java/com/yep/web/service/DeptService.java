@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.yep.web.pojo.Dept;
 
+/**
+ * 部门服务
+ */
 public interface DeptService {
 
     /**

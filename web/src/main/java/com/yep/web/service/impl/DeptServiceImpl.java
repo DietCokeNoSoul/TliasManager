@@ -9,6 +9,9 @@ import com.yep.web.mapper.DeptMapper;
 import com.yep.web.pojo.Dept;
 import com.yep.web.service.DeptService;
 
+/**
+ * 部门服务实现
+ */
 @Service
 public class DeptServiceImpl implements DeptService {
 
