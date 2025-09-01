@@ -101,4 +101,21 @@
             COUNT(*) as count 
         FROM emp GROUP BY gender;
     </select>
+
+    <!-- update --> 
+
+    <update id="update">
+        UPDATE emp SET
+            username = #{username},
+            password = #{password},
+            name = #{name},
+            gender = #{gender},
+            phone = #{phone},
+            job = #{job},
+            salary = #{salary},
+            image = #{image},
+            entry_time = #{entryTime},
+            dept_id = #{deptId}
+        WHERE id = #{id}
+    </update>
 </mapper>

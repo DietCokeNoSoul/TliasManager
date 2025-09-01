@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yep.web.mapper.EmpMapper;
+import com.yep.web.mapper.StudentMapper;
+import com.yep.web.pojo.DegreeOption;
 import com.yep.web.pojo.JobOption;
 
 @Service
@@ -17,6 +19,9 @@ public class ReportServiceImpl implements ReportService {
 
     @Autowired
     private EmpMapper empMapper;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     /**
      * 获取员工职位数据
@@ -36,9 +41,38 @@ public class ReportServiceImpl implements ReportService {
         return jobOption;
     }
 
+    /**
+     * 获取员工性别数据
+     * @return
+     */
     @Override
     public List<Map<String, Object>> getGenderData() {
         return empMapper.countEmpGenderData();
+    }
+
+    /**
+     * 获取班级人数
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> getClassStudentCount() {
+        return studentMapper.countClassStudent();
+    }
+
+    /**
+     * 获取学历人数
+     * @return
+     */
+    @Override
+    public DegreeOption getDegreeStudentCount() {
+        List<Map<String, Object>> countStuDegreeData = studentMapper.countStuDegreeData();
+        List<Object> degreeName = countStuDegreeData.stream().map(dataMap -> dataMap.get("degree_name")).toList();
+        List<Object> studentCount = countStuDegreeData.stream().map(dataMap -> dataMap.get("student_count")).toList();
+
+        DegreeOption degreeOption = new DegreeOption();
+        degreeOption.setDegreeList(degreeName);
+        degreeOption.setDataList(studentCount);
+        return degreeOption;
     }
 
 }

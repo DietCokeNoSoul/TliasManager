@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yep.web.mapper.ClazzMapper">
+    <resultMap id="clazzResultMap" type="com.yep.web.pojo.Clazz">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="room" column="room"/>
+        <result property="beginDate" column="begin_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="masterId" column="master_id"/>
+        <result property="subject" column="subject"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <!-- selectAll --> 
+
+    <select id="selectAll" resultMap="clazzResultMap">
+        SELECT * FROM clazz
+    </select>
+
+    <!-- delete --> 
+
+    <delete id="delete">
+        DELETE FROM clazz WHERE id = #{id}
+    </delete>
+
+    <!-- insert --> 
+
+    <insert id="insert">
+        INSERT INTO clazz(name, room, begin_date, end_date, master_id, subject) VALUES 
+        (#{name}, 
+        <choose>
+            <when test="room != null and room != ''">#{room},</when>
+            <otherwise>NULL,</otherwise>
+        </choose>
+        #{beginDate}, #{endDate}, #{masterId}, #{subject})
+    </insert>
+
+    <!-- selectById --> 
+
+    <select id="selectById" resultMap="clazzResultMap">
+        SELECT * FROM clazz WHERE id = #{id}
+    </select>
+
+    <!-- update --> 
+
+    <update id="update">
+        UPDATE clazz 
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="room != null and room != ''">
+                room = #{room}
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate}
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate}
+            </if>
+            <if test="masterId != null">
+                master_id = #{masterId}
+            </if>
+            <if test="subject != null">
+                subject = #{subject}
+            </if>
+            WHERE id = #{id}
+        </set>
+    </update>
+</mapper>

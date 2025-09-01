@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yep.web.mapper.StudentMapper">
+    <resultMap id="studentResultMap" type="com.yep.web.pojo.Student">
+        <id property="id" column="id"/>
+        <result property="no" column="no"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="idCard" column="id_card"/>
+        <result property="isCollege" column="is_college"/>
+        <result property="address" column="address"/>
+        <result property="degree" column="degree"/>
+        <result property="graduationDate" column="graduation_date"/>
+        <result property="clazzId" column="clazz_id"/>
+        <result property="violationCount" column="violation_count"/>
+        <result property="violationScore" column="violation_score"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="count">
+        SELECT COUNT(*) FROM emp LEFT JOIN dept ON emp.dept_id = dept.id
+    </select>
+
+    <!-- list --> 
+
+    <select id="list" resultMap="studentResultMap">
+        SELECT student.*, clazz.name AS clazzName FROM student LEFT JOIN clazz ON student.clazz_id = clazz.id
+        <where>
+            <if test="name != null and name != ''">
+                student.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                AND student.gender = #{gender}
+            </if>
+        </where>
+        ORDER BY student.update_time DESC
+    </select>
+
+    <!-- delete --> 
+
+    <delete id="delete">
+        DELETE FROM student WHERE id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- insert --> 
+
+    <insert id="insert" parameterType="com.yep.web.pojo.Student">
+        INSERT INTO student (no, name, gender, phone, id_card, is_college, address, degree, graduation_date, clazz_id, violation_count, violation_score)
+        VALUES (#{no}, #{name}, #{gender}, #{phone}, #{idCard}, #{isCollege}, #{address}, #{degree}, #{graduationDate}, #{clazzId}, 
+        <choose>
+            <when test="violationCount != null">#{violationCount},</when>
+            <otherwise>0,</otherwise>
+        </choose>
+        <choose>
+            <when test="violationScore != null">#{violationScore}</when>
+            <otherwise>0</otherwise>
+        </choose>
+        )
+    </insert>
+
+    <!-- update --> 
+
+    <update id="update">
+        UPDATE student 
+        <set>
+            <if test="no != null">no = #{no},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="idCard != null">id_card = #{idCard},</if>
+            <if test="isCollege != null">is_college = #{isCollege},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="degree != null">degree = #{degree},</if>
+            <if test="graduationDate != null">graduation_date = #{graduationDate},</if>
+            <if test="clazzId != null">clazz_id = #{clazzId},</if>
+            <if test="violationCount != null">violation_count = #{violationCount},</if>
+            <if test="violationScore != null">violation_score = #{violationScore},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- getById --> 
+
+    <select id="getById" resultMap="studentResultMap">
+        SELECT student.*, clazz.name AS clazzName FROM student LEFT JOIN clazz ON student.clazz_id = clazz.id
+        WHERE student.id = #{id}
+    </select>
+
+    <!-- countClassStudent --> 
+
+    <select id="countClassStudent">
+        SELECT clazz.name, COUNT(*) as student_count FROM student INNER JOIN clazz ON student.clazz_id = clazz.id GROUP BY clazz.id;
+    </select>
+
+    <!-- countStuDegreeData --> 
+
+    <select id="countStuDegreeData">
+        SELECT CASE degree WHEN 1 THEN '初中及以下'
+            WHEN 2 THEN '高中'
+            WHEN 3 THEN '中专/技校'
+            WHEN 4 THEN '大专'
+            WHEN 5 THEN '本科'
+            WHEN 6 THEN '硕士及以上'
+            WHEN 7 THEN '博士'
+            END AS degree_name,
+            COUNT(*) as student_count 
+        FROM student GROUP BY degree;
+    </select>
+</mapper>

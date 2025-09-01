@@ -40,8 +40,8 @@ public class DeptController {
 
     @DeleteMapping("/{id}")
     public Result deleteDept(@PathVariable Integer id) {
-        deptService.delete(id);
         log.info("删除部门，ID：{}", id);
+        deptService.delete(id);
         return Result.success();
     }
 
@@ -61,8 +61,8 @@ public class DeptController {
     
     @PutMapping
     public Result updateDept(@RequestBody Dept entity) {
-        deptService.update(entity);
         log.info("更新部门，参数：{}", entity);
+        deptService.update(entity);
         return Result.success();
     }
 }

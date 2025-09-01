@@ -20,7 +20,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public List<Dept> findAll() {
-        return deptMapper.findAll();
+        return deptMapper.selectAll();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public Dept getInfo(Integer id) {
-        return deptMapper.findById(id);
+        return deptMapper.selectById(id);
     }
 
     @Override

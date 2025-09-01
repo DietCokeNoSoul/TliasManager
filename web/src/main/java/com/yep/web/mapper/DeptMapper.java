@@ -15,7 +15,7 @@ public interface DeptMapper {
      * 获取所有部门
      * @return 部门列表
      */
-    List<Dept> findAll();
+    List<Dept> selectAll();
 
     /**
      * 删除部门
@@ -34,7 +34,7 @@ public interface DeptMapper {
      * @param id 部门ID
      * @return 部门实体
      */
-    Dept findById(Integer id);
+    Dept selectById(Integer id);
 
     /**
      * 更新部门

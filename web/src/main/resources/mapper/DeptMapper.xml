@@ -8,9 +8,9 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-    <!-- findAll --> 
+    <!-- selectAll -->
 
-    <select id="findAll" resultMap="deptResultMap">
+    <select id="selectAll" resultMap="deptResultMap">
         SELECT id, name, create_time, update_time FROM dept ORDER BY update_time DESC;
     </select>
 
@@ -22,7 +22,7 @@
         INSERT INTO dept (name, create_time, update_time) VALUES (#{name}, now(), now())
     </insert>
 
-    <select id="findById" resultMap="deptResultMap">
+    <select id="selectById" resultMap="deptResultMap">
         SELECT id, name, create_time, update_time FROM dept WHERE id = #{id}
     </select>
     

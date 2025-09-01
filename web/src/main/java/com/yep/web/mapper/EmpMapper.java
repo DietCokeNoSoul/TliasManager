@@ -3,7 +3,6 @@ package com.yep.web.mapper;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 
@@ -21,33 +20,33 @@ public interface EmpMapper {
      * @return
      * 员工列表
      */
-    public List<Emp> list(EmpQueryParam empQueryParam);
+    List<Emp> list(EmpQueryParam empQueryParam);
 
     /**
      * 插入员工
      * @param emp 员工信息
      */
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    public void insert(Emp emp);
+    void insert(Emp emp);
 
     /**
      * 删除员工
      * @param ids 员工ID列表
      */
-    public void delete(List<Integer> ids);
+    void delete(List<Integer> ids);
 
     /**
      * 根据ID获取员工信息
      * @param id 员工ID
      * @return 员工信息
      */
-    public Emp getById(Integer id);
+    Emp getById(Integer id);
 
     /**
      * 更新员工信息
      * @param emp 员工信息
      */
-    public void update(Emp emp);
+    void update(Emp emp);
 
     /**
      * 统计员工职位分布

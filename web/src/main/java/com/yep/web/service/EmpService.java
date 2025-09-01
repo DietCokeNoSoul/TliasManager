@@ -12,13 +12,13 @@ import com.yep.web.pojo.PageResult;
  */
 public interface EmpService {
 
-    public PageResult<Emp> list(EmpQueryParam empQueryParam);
+    PageResult<Emp> list(EmpQueryParam empQueryParam);
 
-    public void createEmp(Emp emp);
+    void createEmp(Emp emp);
 
-    public void deleteEmp(List<Integer> ids);
+    void deleteEmp(List<Integer> ids);
 
-    public Emp getEmpById(Integer id);
+    Emp getEmpById(Integer id);
 
-    public void updateEmp(Emp entity);
+    void updateEmp(Emp entity);
 }
