@@ -17,6 +17,14 @@
         <result property="violationScore" column="violation_score"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="clazzName" column="clazzName"/>
+        <collection property="violationList" ofType="com.yep.web.pojo.Violation">
+            <result property="id" column="id"/>
+            <result property="studentId" column="student_id"/>
+            <result property="description" column="description"/>
+            <result property="score" column="score"/>
+            <result property="vioDate" column="vio_date"/>
+        </collection>
     </resultMap>
 
     <select id="count">
@@ -49,7 +57,7 @@
 
     <!-- insert --> 
 
-    <insert id="insert" parameterType="com.yep.web.pojo.Student">
+    <insert id="insert" parameterType="com.yep.web.pojo.Student" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO student (no, name, gender, phone, id_card, is_college, address, degree, graduation_date, clazz_id, violation_count, violation_score)
         VALUES (#{no}, #{name}, #{gender}, #{phone}, #{idCard}, #{isCollege}, #{address}, #{degree}, #{graduationDate}, #{clazzId}, 
         <choose>
@@ -89,7 +97,8 @@
     <!-- getById --> 
 
     <select id="getById" resultMap="studentResultMap">
-        SELECT student.*, clazz.name AS clazzName FROM student LEFT JOIN clazz ON student.clazz_id = clazz.id
+        SELECT student.*, clazz.name AS clazzName, violation.description, violation.score, violation.vio_date
+        FROM (student LEFT JOIN clazz ON student.clazz_id = clazz.id) LEFT JOIN violation ON student.id = violation.student_id
         WHERE student.id = #{id}
     </select>
 

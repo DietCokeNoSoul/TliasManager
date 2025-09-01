@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yep.web.mapper.ViolationMapper">
+    <resultMap id="violationResultMap" type="com.yep.web.pojo.Violation">
+        <id property="id" column="id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="description" column="description"/>
+        <result property="score" column="score"/>
+        <result property="vioDate" column="vio_date"/>
+    </resultMap>
+
+    <!-- insert --> 
+
+    <insert id="insert">
+        Insert into violation (student_id, description, score, vio_date) VALUES
+        <foreach collection="violationList" item="violation" separator=",">
+        (#{violation.studentId}, #{violation.description}, #{violation.score}, #{violation.vioDate})
+        </foreach>
+    </insert>
+
+    <!-- deleteByStudentIds --> 
+
+    <delete id="deleteByStudentIds">
+        DELETE FROM violation where student_id IN
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

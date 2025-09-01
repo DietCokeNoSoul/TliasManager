@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.yep.web.pojo.Emp;
 import com.yep.web.pojo.EmpQueryParam;
+import com.yep.web.pojo.LoginInfo;
 import com.yep.web.pojo.PageResult;
 
 /**
@@ -21,4 +22,6 @@ public interface EmpService {
     Emp getEmpById(Integer id);
 
     void updateEmp(Emp entity);
+
+    LoginInfo login(Emp emp);
 }

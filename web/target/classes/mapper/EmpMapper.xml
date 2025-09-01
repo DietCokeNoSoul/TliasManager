@@ -118,4 +118,10 @@
             dept_id = #{deptId}
         WHERE id = #{id}
     </update>
+
+    <!-- selectByUsername --> 
+
+    <select id="selectByUsername" resultMap="empResultMap">
+        SELECT id, username, name FROM emp WHERE username = #{username}
+    </select>
 </mapper>

@@ -14,12 +14,16 @@ import com.yep.web.mapper.EmpMapper;
 import com.yep.web.pojo.Emp;
 import com.yep.web.pojo.EmpExpr;
 import com.yep.web.pojo.EmpQueryParam;
+import com.yep.web.pojo.LoginInfo;
 import com.yep.web.pojo.PageResult;
 import com.yep.web.service.EmpService;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 员工服务实现
  */
+@Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
 
@@ -94,6 +98,21 @@ public class EmpServiceImpl implements EmpService {
             empExprList.forEach(empExpr -> empExpr.setEmpId(emp.getId()));
             empExprMapper.insert(empExprList);
         }
+    }
+
+    /**
+     * 登录
+     * @param emp
+     * @return
+     */
+    @Override
+    public LoginInfo login(Emp emp) {
+        Emp e = empMapper.selectByUsername(emp.getUsername());
+        if (e != null) {
+            log.info("登陆成功: {}", e);
+            return new LoginInfo(e.getId(), e.getUsername(), e.getName(), "");
+        }
+        return null;
     }
 
 }

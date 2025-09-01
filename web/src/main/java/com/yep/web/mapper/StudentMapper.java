@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import com.yep.web.pojo.Student;
 import com.yep.web.pojo.StudentQueryParam;
@@ -15,9 +16,10 @@ public interface StudentMapper {
 
     void delete(List<Integer> ids);
 
-    void insert(Student entity);
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void insert(Student student);
 
-    void update(Student entity);
+    void update(Student student);
 
     Student getById(Integer id);
 

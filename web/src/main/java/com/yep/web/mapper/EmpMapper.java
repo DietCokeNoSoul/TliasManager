@@ -60,4 +60,11 @@ public interface EmpMapper {
      * @return 性别分布数据
      */
     List<Map<String, Object>> countEmpGenderData();
+
+    /**
+     * 根据用户名查询员工信息
+     * @param username 用户名
+     * @return 员工信息
+     */
+    Emp selectByUsername(String username);
 }

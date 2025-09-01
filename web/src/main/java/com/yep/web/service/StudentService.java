@@ -1,4 +1,4 @@
-package com.yep.web.service.impl;
+package com.yep.web.service;
 
 import java.util.List;
 
@@ -17,9 +17,6 @@ public interface StudentService {
 
     void updateStudent(Student entity);
 
-    /**
-     * 获取学生
-     */
-    Student getStudent(Integer id);
+    Student getStudentById(Integer id);
 
 }

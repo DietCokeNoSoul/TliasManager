@@ -15,9 +15,9 @@
     <!-- insertEmpExpr --> 
 
     <insert id="insert" parameterType="com.yep.web.pojo.EmpExpr">
-        INSERT INTO emp_expr (begin, end, company, job, emp_id)
+        INSERT INTO emp_expr (begin, end, company, job, emp_id) VALUES
         <foreach collection="empExprList" item="item" separator=",">
-            VALUES (#{item.begin}, #{item.end}, #{item.company}, #{item.job}, #{item.empId})
+            (#{item.begin}, #{item.end}, #{item.company}, #{item.job}, #{item.empId})
         </foreach>
     </insert>
 

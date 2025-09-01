@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yep.web.pojo.Emp;
 import com.yep.web.pojo.PageResult;
 import com.yep.web.pojo.Result;
 import com.yep.web.pojo.Student;
 import com.yep.web.pojo.StudentQueryParam;
-import com.yep.web.service.impl.StudentService;
+import com.yep.web.service.StudentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,6 +62,21 @@ public class StudentController {
         return Result.success();
     }
 
+    /**
+     * 获取学生信息
+     * @param id 学生ID
+     */
+    @GetMapping("/{id}")
+    public Result getStudent(@PathVariable Integer id) {
+        log.info("获取学生信息，ID：{}", id);
+        Student student = studentService.getStudentById(id);
+        return Result.success(student);
+    }
+
+    /**
+     * 更新学生
+     * @param entity 学生实体
+     */
     @PutMapping
     public Result updateStudent(@RequestBody Student entity) {
         log.info("更新学生，参数：{}", entity);
